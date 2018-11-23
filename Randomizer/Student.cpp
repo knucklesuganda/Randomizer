@@ -10,10 +10,11 @@ Student::Student(string name, int diamonds, int grade){
 
 void Student::setStudentDiamonds(int diamonds){
 
-	if (diamonds >= 0)
+	if (diamonds >= 0 && diamonds <= 6)
 		this->diamonds = diamonds;
 	else
 		this->diamonds = 0;
+
 }
 
 void Student::setStudentName(string name){
@@ -22,7 +23,7 @@ void Student::setStudentName(string name){
 
 void Student::setStudentGrade(int grade){
 
-	if (grade >= 0)
+	if (grade >= 0 && grade <= 12)
 		this->grade = grade;
 	else
 		this->grade = 0;

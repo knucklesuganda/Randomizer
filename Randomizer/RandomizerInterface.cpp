@@ -120,6 +120,20 @@ void RandomizerInterface::addStudents(){
 
 }
 
+void RandomizerInterface::removeStudent(){
+
+	system("cls");
+	this->ShowStudents();
+
+	int id;
+	greeting("Write removed student id:", false);
+	cin >> id;
+
+	if (!this->random.removeStudentById(id))
+		greeting("Wrong id");
+
+}
+
 void RandomizerInterface::RandomizeDiamonds(){
 
 	greeting("Randomize diamonds...");
@@ -161,8 +175,6 @@ void RandomizerInterface::RandomizeGrade(){
 
 void RandomizerInterface::Settings(){
 
-	system("cls");
-
 	this->MAINMENU = "\t#----------------------------------------------------------------#\n";
 	this->MAINMENU += "\t#\tDiamonds(1):" + to_string(this->random.getDiamonds()) + "\tColors(2):" + to_string(this->random.getStudentsSize()) + "\t\t\t\t #\n";
 	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
@@ -200,12 +212,12 @@ void RandomizerInterface::MainMenuBuilder(){
 
 	this->MAINMENU = "\t#----------------------------------------------------------------#\n";
 	this->MAINMENU += "\t#\tDiamonds:" + to_string(this->random.getDiamonds()) 
-		+ "\tStudents:" + to_string(this->random.getStudentsSize()) + "                               #\n";
+		+ "\tStudents:" + to_string(this->random.getStudentsSize()) + "                              #\n";
 
 	this->MAINMENU += "\t#\tEdit students(1)\tAdd student(2)                   #\n";
 	this->MAINMENU += "\t#\tRandomizeDiamonds(3)\tRandomize grade(4)               #\n";
 
-	this->MAINMENU += "\t#\tShow students(5)\tSettings(6)                      #\n";
+	this->MAINMENU += "\t#\tShow students(5)\tDelete Student(6)\tSettings(7)#\n";
 	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
 
 }
@@ -308,8 +320,15 @@ void RandomizerInterface::mainMenu(){
 				break;
 
 			case 6:
-				this->Settings();
+				system("cls");
 				this->loading();
+				this->removeStudent();
+				break;
+
+			case 7:
+				system("cls");
+				this->loading();
+				this->Settings();
 				break;
 
 			default:

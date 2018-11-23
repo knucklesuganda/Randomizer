@@ -18,8 +18,9 @@ class RandomizerInterface{
 
 	void editStudents();
 	void addStudents();
-	void MainMenuBuilder();
+	void removeStudent();
 
+	void MainMenuBuilder();
 	void ShowStudents() const;
 	void RandomizeGrade();
 
@@ -28,4 +29,5 @@ class RandomizerInterface{
 
 public:
 	void start();
+
 };

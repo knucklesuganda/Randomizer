@@ -26,6 +26,7 @@ public:
 	bool randomizeGrade(int id);
 
 	void addnewStudent(string name, int diamonds, int grade);
+	bool removeStudentById(int id);
 	void clearStudents(bool grades = false);
 
 	string getStudentsInfo() const;

@@ -8,7 +8,4 @@ int main() {
 	RandomizerInterface d;
 	d.start();
 
-
-
-	system("pause");
 }

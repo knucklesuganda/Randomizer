@@ -5,9 +5,18 @@ Randomizer::Randomizer(int diamonds, int students){
 	srand(time(NULL));
 	this->setDiamonds(diamonds);
 
-	this->students.push_back(Student("andrey"));
-	this->students.push_back(Student("aslan"));
-	this->students.push_back(Student("dulat"));
+	this->students.push_back(Student("Andrey"));
+	this->students.push_back(Student("Ali"));
+	this->students.push_back(Student("Janitor"));
+	this->students.push_back(Student("Designer"));
+	this->students.push_back(Student("Annael"));
+	this->students.push_back(Student("Ravil"));
+	this->students.push_back(Student("Vladislav"));
+	this->students.push_back(Student("Diiiiias"));
+	this->students.push_back(Student("RusLAN"));
+	this->students.push_back(Student("Kirill"));
+	this->students.push_back(Student("Mariyaaaaaaaaaaaaaaaaaaaaaaaa"));
+	this->students.push_back(Student("YaRosLav"));
 
 }
 
@@ -72,6 +81,16 @@ bool Randomizer::randomizeGrade(int id){
 
 void Randomizer::addnewStudent(string name, int diamonds, int grade){
 	this->students.push_back(Student(name, diamonds, grade));
+}
+
+bool Randomizer::removeStudentById(int id){
+
+	if (id < 0 || id > this->students.size())
+		return false;
+
+	this->students.erase(this->students.begin() + id);
+	return true;
+
 }
 
 void Randomizer::clearStudents(bool grades){
