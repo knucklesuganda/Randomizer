@@ -9,7 +9,8 @@ void RandomizerInterface::loading() const {
 		for (size_t j = 0; j < 100; j++)
 			cout << '#';
 
-		Sleep(50);
+		cout << endl;
+		Sleep(30);
 	}
 
 	system("cls");
@@ -22,7 +23,7 @@ void RandomizerInterface::greeting(string greeting, bool clear, int time) const{
 		cout << greeting[i];
 		Sleep(time);
 	}
-	
+
 	Sleep(1000);
 
 	if(clear)
@@ -32,21 +33,21 @@ void RandomizerInterface::greeting(string greeting, bool clear, int time) const{
 
 void RandomizerInterface::editStudents(){
 
+	this->ShowStudents();
+
 	int id;
-	greeting("Write id of student", false);
+	greeting("Write id of student:", false);
 	cin >> id;
 
 	string info = this->random.getStudentInfoById(id);
 
 	if (info == "NoneStud") {
-
 		greeting("Wrong student id!");
 		return;
-
 	}
 
 	char correct;
-	greeting(info + "\nCorrect student?", false, 50);
+	greeting(info + "\nCorrect student?y/n");
 	cin >> correct;
 
 	if (correct != 'y' && correct != 'Y') {
@@ -58,7 +59,8 @@ void RandomizerInterface::editStudents(){
 
 	string name;
 	greeting("Write student name:", false);
-	cin >> name;
+	cin.ignore();
+	getline(cin, name);
 
 	int diamonds;
 	greeting("Write student diamonds:", false);
@@ -75,14 +77,14 @@ void RandomizerInterface::editStudents(){
 	greeting("Your student will be\n" + tmp.getStudentInfo() + "y/n", false);
 	cin >> choice;
 
-	if (choice == 'y' && choice == 'Y')
-		this->random.editStudentById(id, name, diamonds, grade);
-	else {
+	if (choice != 'y' && choice != 'Y'){
 
 		greeting("Trying again...");
 		this->editStudents();
 
 	}
+
+	this->random.editStudentById(id, name, diamonds, grade);
 
 }
 
@@ -125,36 +127,44 @@ void RandomizerInterface::RandomizeDiamonds(){
 	this->ShowStudents();
 
 	char choice;
-	greeting("You agree?", false);
+	greeting("You agree?y/n", false);
 	cin >> choice;
 
-	if (choice != 'y' || choice != 'Y') {
+	if (choice != 'y' && choice != 'Y') {
 
 		this->random.clearStudents();
 		this->RandomizeDiamonds();
 
 	}
 
+	greeting("Diamonds succesfully randomized");
 }
 
 void RandomizerInterface::ShowStudents() const{
-	greeting("\tStudents info" + this->random.getStudentsInfo(), false);
+
+	greeting("\tStudents info\n" + this->random.getStudentsInfo(), false, 20);
+
 }
 
 void RandomizerInterface::RandomizeGrade(){
+
+	this->ShowStudents();
 
 	int id;
 	greeting("Write student id:", false);
 	cin >> id;
 
 	this->random.randomizeGrade(id);
+	greeting("Student grade:" + this->random.getStudentInfoById(id), false);
 
 }
 
 void RandomizerInterface::Settings(){
 
+	system("cls");
+
 	this->MAINMENU = "\t#----------------------------------------------------------------#\n";
-	this->MAINMENU += "\t#\tDiamonds(1):" + to_string(this->random.getDiamonds()) + "\tColors(2):" + to_string(this->random.getStudentsSize()) + "\t#\n";
+	this->MAINMENU += "\t#\tDiamonds(1):" + to_string(this->random.getDiamonds()) + "\tColors(2):" + to_string(this->random.getStudentsSize()) + "\t\t\t\t #\n";
 	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
 
 	greeting(this->MAINMENU, false, 20);
@@ -177,7 +187,7 @@ void RandomizerInterface::Settings(){
 			char color[2];
 			greeting("Write 'color' + keys:", false);
 
-			cin.clear();
+			cin.ignore();
 			cin.getline(color, 2);
 			system(color);
 			return;
@@ -195,7 +205,7 @@ void RandomizerInterface::MainMenuBuilder(){
 	this->MAINMENU += "\t#\tEdit students(1)\tAdd student(2)                   #\n";
 	this->MAINMENU += "\t#\tRandomizeDiamonds(3)\tRandomize grade(4)               #\n";
 
-	this->MAINMENU += "\t#\tShow students(5)\tSettings(4)                      #\n";
+	this->MAINMENU += "\t#\tShow students(5)\tSettings(6)                      #\n";
 	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
 
 }
@@ -218,7 +228,6 @@ void RandomizerInterface::start() {
 	}
 
 	greeting("Good boy...");
-	//auto mainMusic = thread(PlaySound(TEXT("MainMusic.wav"), NULL, SND_LOOP), this);
 
 	int diamonds;
 	greeting("Write diamonds number:", false);
@@ -232,7 +241,7 @@ void RandomizerInterface::start() {
 
 	if (this->random.getStudentsSize() > 0) {
 
-		greeting("\tStudents\n" + this->random.getStudentsInfo(), false, 20);
+		this->ShowStudents();
 
 		char goodStudents;
 		greeting("Is it ok? y/n", false);
@@ -269,32 +278,39 @@ void RandomizerInterface::mainMenu(){
 
 			case 1:
 				system("cls");
+				this->loading();
 				this->editStudents();
 				break;
 
 			case 2:
 				system("cls");
+				this->loading();
 				this->addStudents();
 				break;
 
 			case 3:
 				system("cls");
+				this->loading();
 				this->RandomizeDiamonds();
 				break;
 
 			case 4:
 				system("cls");
+				this->loading();
 				this->RandomizeGrade();
 				break;
 
 			case 5:
 				system("cls");
+				this->loading();
 				this->ShowStudents();
 				system("pause");
 				break;
 
 			case 6:
 				this->Settings();
+				this->loading();
+				break;
 
 			default:
 				greeting("Cant find command\n", false);

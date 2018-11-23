@@ -49,12 +49,12 @@ void Randomizer::setAllgrade(int grade){
 
 void Randomizer::randomizeDiamonds(){
 
-	for (size_t i = 0; i < this->diamonds; i++) {
+	while(this->diamonds > 0) {
 
-		int luckyStudent = (rand() % static_cast<int>(this->students.size() + 1)) + 1;
+		int luckyStudent = rand() % this->students.size();   // v3 in the range 1985-2014
 
 		while (this->students[luckyStudent].getStudentDiamonds() >= 6)
-			luckyStudent = rand() % this->diamonds + 1;
+			luckyStudent = rand() % this->students.size();
 
 		this->students[luckyStudent].increaseDiamonds();
 		this->diamonds--;
@@ -67,9 +67,7 @@ bool Randomizer::randomizeGrade(int id){
 	if (id < 0 || id > this->students.size())
 		return false;
 
-	GradeRandomizer gr;
 	this->students[id].setStudentGrade(rand()%12 + 6);
-
 }
 
 void Randomizer::addnewStudent(string name, int diamonds, int grade){
@@ -92,10 +90,10 @@ void Randomizer::clearStudents(bool grades){
 
 string Randomizer::getStudentsInfo() const{
 
-	string info = this->students[0].getStudentInfo();
+	string info = "0." + this->students[0].getStudentInfo();
 
 	for (int i = 1; i < this->students.size(); i++)
-		info += this->students[i].getStudentInfo();
+		info += to_string(i) + "." + this->students[i].getStudentInfo();
 
 	return info;
 }

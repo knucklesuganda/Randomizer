@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
+#include <thread>
 #include "Randomizer.h"
-#include "GradeRandomizer.h"
 #pragma comment(lib, "winmm.lib")
 using namespace std;
 
@@ -24,11 +24,8 @@ class RandomizerInterface{
 	void RandomizeGrade();
 
 	void Settings();
-
-public:
-
-	void start();
 	void mainMenu();
 
-
+public:
+	void start();
 };
