@@ -217,7 +217,7 @@ void RandomizerInterface::MainMenuBuilder(){
 	this->MAINMENU += "\t#\tEdit students(1)\tAdd student(2)                   #\n";
 	this->MAINMENU += "\t#\tRandomizeDiamonds(3)\tRandomize grade(4)               #\n";
 
-	this->MAINMENU += "\t#\tShow students(5)\tDelete Student(6)      Settings(7)#\n";
+	this->MAINMENU += "\t#\tShow students(5)\tDelete Student(6)     Settings(7)#\n";
 	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
 
 }

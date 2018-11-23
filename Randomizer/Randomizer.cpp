@@ -76,7 +76,7 @@ bool Randomizer::randomizeGrade(int id){
 	if (id < 0 || id > this->students.size())
 		return false;
 
-	this->students[id].setStudentGrade(rand()%12 + 6);
+	this->students[id].setStudentGrade(rand()%12 + 1);
 }
 
 void Randomizer::addnewStudent(string name, int diamonds, int grade){
