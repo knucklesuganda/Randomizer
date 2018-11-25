@@ -23,9 +23,11 @@ public:
 
 	void randomizeDiamonds();
 	bool randomizeGrade(int id);
+	void randomizeGradeTuple(int from = 0, int to = -1);
 
 	void addnewStudent(string name, int diamonds, int grade);
 	bool removeStudentById(int id);
+	void removeStudentsTuple(int from, int to);
 	void clearStudents(bool grades = false);
 
 	string getStudentsInfo() const;

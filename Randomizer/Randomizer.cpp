@@ -7,16 +7,18 @@ Randomizer::Randomizer(int diamonds, int students){
 
 	this->students.push_back(Student("Andrey"));
 	this->students.push_back(Student("Ali"));
-	this->students.push_back(Student("Janitor"));
-	this->students.push_back(Student("Designer"));
+	this->students.push_back(Student("Aslan"));
+	this->students.push_back(Student("DulatCo"));
+
 	this->students.push_back(Student("Annael"));
-	this->students.push_back(Student("Ravil"));
-	this->students.push_back(Student("Vladislav"));
-	this->students.push_back(Student("Diiiiias"));
+	this->students.push_back(Student("RaEvil"));
+	this->students.push_back(Student("VladAndslav"));
+	this->students.push_back(Student("Diass"));
+
 	this->students.push_back(Student("RusLAN"));
-	this->students.push_back(Student("Kirill"));
-	this->students.push_back(Student("Mariyaaaaaaaaaaaaaaaaaaaaaaaa"));
-	this->students.push_back(Student("YaRosLav"));
+	this->students.push_back(Student("KirVizdoravlivay"));
+	this->students.push_back(Student("Mariya"));
+	this->students.push_back(Student("YaRosLaW"));
 
 }
 
@@ -60,9 +62,9 @@ void Randomizer::randomizeDiamonds(){
 
 	while(this->diamonds > 0) {
 
-		int luckyStudent = rand() % this->students.size();   // v3 in the range 1985-2014
+		int luckyStudent = rand() % this->students.size();
 
-		while (this->students[luckyStudent].getStudentDiamonds() >= 6)
+		while (this->students[luckyStudent].getStudentDiamonds() >= 3)
 			luckyStudent = rand() % this->students.size();
 
 		this->students[luckyStudent].increaseDiamonds();
@@ -79,6 +81,16 @@ bool Randomizer::randomizeGrade(int id){
 	this->students[id].setStudentGrade(rand()%12 + 1);
 }
 
+void Randomizer::randomizeGradeTuple(int from, int to){
+
+	if (to == -1)
+		to = this->students.size();
+
+	for (int i = from; i < to; i++)
+		this->randomizeGrade(i);
+
+}
+
 void Randomizer::addnewStudent(string name, int diamonds, int grade){
 	this->students.push_back(Student(name, diamonds, grade));
 }
@@ -90,6 +102,14 @@ bool Randomizer::removeStudentById(int id){
 
 	this->students.erase(this->students.begin() + id);
 	return true;
+
+}
+
+void Randomizer::removeStudentsTuple(int from, int to){
+
+	try {
+		this->students.erase(this->students.begin() + from, this->students.end() - to);
+	}catch (int i) {}
 
 }
 
@@ -109,10 +129,10 @@ void Randomizer::clearStudents(bool grades){
 
 string Randomizer::getStudentsInfo() const{
 
-	string info = "0." + this->students[0].getStudentInfo();
+	string info = "\t0." + this->students[0].getStudentInfo();
 
 	for (int i = 1; i < this->students.size(); i++)
-		info += to_string(i) + "." + this->students[i].getStudentInfo();
+		info += "\t" + to_string(i) + "." + this->students[i].getStudentInfo();
 
 	return info;
 }
