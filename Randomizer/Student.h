@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-class Student{
+class Student {
 
 	string name;
 	int diamonds, grade;

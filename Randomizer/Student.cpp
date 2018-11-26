@@ -1,6 +1,6 @@
 #include "Student.h"
 
-Student::Student(string name, int diamonds, int grade){
+Student::Student(string name, int diamonds, int grade) {
 
 	this->setStudentDiamonds(diamonds);
 	this->setStudentName(name);
@@ -8,7 +8,7 @@ Student::Student(string name, int diamonds, int grade){
 
 }
 
-void Student::setStudentDiamonds(int diamonds){
+void Student::setStudentDiamonds(int diamonds) {
 
 	if (diamonds >= 0 && diamonds <= 6)
 		this->diamonds = diamonds;
@@ -17,11 +17,11 @@ void Student::setStudentDiamonds(int diamonds){
 
 }
 
-void Student::setStudentName(string name){
+void Student::setStudentName(string name) {
 	this->name = name;
 }
 
-void Student::setStudentGrade(int grade){
+void Student::setStudentGrade(int grade) {
 
 	if (grade >= 0 && grade <= 12)
 		this->grade = grade;
@@ -30,23 +30,23 @@ void Student::setStudentGrade(int grade){
 
 }
 
-int Student::getStudentDiamonds() const{
+int Student::getStudentDiamonds() const {
 	return this->diamonds;
 }
 
-int Student::getStudentGrade() const{
+int Student::getStudentGrade() const {
 	return this->grade;
 }
 
-void Student::increaseDiamonds(){
+void Student::increaseDiamonds() {
 	this->diamonds++;
 }
 
-string Student::getStudentName() const{
+string Student::getStudentName() const {
 	return this->name;
 }
 
-string Student::getStudentInfo() const{
+string Student::getStudentInfo() const {
 	return "Name:" + this->name + "\tGrade:" + to_string(this->grade)
 		+ "\tDiamonds:" + to_string(this->diamonds) + "\n";
 }

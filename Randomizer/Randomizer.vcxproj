@@ -119,18 +119,17 @@
     <ClInclude Include="RandomizerInterface.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="VisionFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="RandomizerInterface.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="VisionFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Randomizer.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\Downloads\Megalovania.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

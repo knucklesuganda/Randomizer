@@ -1,343 +1,482 @@
 #include "RandomizerInterface.h"
 
-void RandomizerInterface::loading() const {
+RandomizerInterface::RandomizerInterface() {
 
-	system("cls");
-
-	for (size_t i = 0; i < 20; i++){
-
-		for (size_t j = 0; j < 100; j++)
-			cout << '#';
-
-		cout << endl;
-		Sleep(30);
-	}
-
-	system("cls");
+	this->border += "#";
+	for (size_t i = 0; i < 100; i++)
+		this->border += "-";
+	this->border += "#\n";
 
 }
 
-void RandomizerInterface::greeting(string greeting, bool clear, int time) const{
+void RandomizerInterface::RandomizeDiamonds() {
 
-	for (size_t i = 0; i < greeting.length(); i++) {
-		cout << greeting[i];
-		Sleep(time);
+	system("cls");
+	this->random.randomizeDiamonds();
+	this->showStudents();
+
+	char choice;
+	Text("You agree?").FastShow();
+	cin >> choice;
+
+	switch (choice) {
+
+	case 'n':
+		this->RandomizeDiamonds();
+		break;
+
+	default:
+		break;
 	}
+}
 
-	Sleep(1000);
+void RandomizerInterface::setDiamonds() {
 
-	if(clear)
-		system("cls");
+	int diamonds;
+	Text("Write new diamonds number:", Cyan).showActive();
+	cin >> diamonds;
+
+	this->random.setDiamonds(diamonds);
+}
+
+void RandomizerInterface::setGrade() {
+
+	system("cls");
+	this->showStudents();
+
+	int grade;
+	Text("Write grade:", Magenta).showActive();
+	cin >> grade;
+
+	int choice;
+	Text("1.By id\n", Green).showActive();
+	Text("1.For tuple\n", Blue).showActive();
+	Text("1.For all\n", Brown).showActive();
+
+	cin >> choice;
+	switch (choice) {
+
+	case 1:
+		int id;
+		Text("Write id:", Green).showActive();
+		cin >> id;
+		this->random.setStudentGradeById(id, grade);
+		break;
+
+	case 2:
+		int from, to;
+		Text("Write first id:", Green).showActive();
+		cin >> from;
+
+		Text("Write last id:", Green).showActive();
+		cin >> to;
+		this->random.setStudentGradeTuple(from, to, grade);
+		break;
+
+	case 3:
+		this->random.setAllgrade(grade);
+		break;
+
+	default:
+		break;
+
+	}
 
 }
 
-void RandomizerInterface::editStudents(){
+void RandomizerInterface::editStudents() {
 
-	this->ShowStudents();
-
-	int id;
-	greeting("Write id of student:", false);
-	cin >> id;
-
-	string info = this->random.getStudentInfoById(id);
-
-	if (info == "NoneStud") {
-		greeting("Wrong student id!");
-		return;
-	}
-
-	char correct;
-	greeting(info + "\nCorrect student?y/n");
-	cin >> correct;
-
-	if (correct != 'y' && correct != 'Y') {
-
-		greeting("Send you to start...");
-		this->editStudents();
-
-	}
+	system("cls");
 
 	string name;
-	greeting("Write student name:", false);
+	int grade, diamonds;
+	this->showStudents();
+
+	int id;
+	Text("Write student id:").FastShow();
+	cin >> id;
+
+	Text("Write student name:").FastShow();
 	cin.ignore();
 	getline(cin, name);
 
-	int diamonds;
-	greeting("Write student diamonds:", false);
-	cin >> diamonds;
-
-	int grade;
-	greeting("Write student grade:", false);
+	Text("Write student grade:").FastShow();
 	cin >> grade;
 
-	greeting("Creating student...");
-	Student tmp(name, diamonds, grade);
+	Text("Write student diamonds:").FastShow();
+	cin >> diamonds;
+
+	Student newStud(name, diamonds, grade);
+	Text(newStud.getStudentInfo(), LightBlue).showActive();
 
 	char choice;
-	greeting("Your student will be\n" + tmp.getStudentInfo() + "y/n", false);
+	Text("You agree?").FastShow();
 	cin >> choice;
 
-	if (choice != 'y' && choice != 'Y'){
+	switch (choice) {
 
-		greeting("Trying again...");
+	case 'y':
+		this->random.editStudentById(id, name, diamonds, grade);
+		break;
+
+	case 'n':
 		this->editStudents();
+		break;
 
-	}
-
-	this->random.editStudentById(id, name, diamonds, grade);
-
-}
-
-void RandomizerInterface::addStudents(){
-
-	string name;
-	greeting("Write student name:", false);
-	cin >> name;
-
-	int diamonds;
-	greeting("Write student diamonds:", false);
-	cin >> diamonds;
-
-	int grade;
-	greeting("Write student grade:", false);
-	cin >> grade;
-
-	greeting("Creating student...");
-	Student tmp(name, diamonds, grade);
-
-	char choice;
-	greeting("Your student will be\n" + tmp.getStudentInfo() + "y/n", false);
-	cin >> choice;
-
-	if (choice == 'y' || choice == 'Y')
-		this->random.addnewStudent(name, diamonds, grade);
-	else {
-
-		greeting("Trying again...");
-		this->addStudents();
-
+	default:
+		break;
 	}
 
 }
 
-void RandomizerInterface::removeStudent(){
+void RandomizerInterface::addStudents() {
 
 	system("cls");
-	this->ShowStudents();
+	string name;
+	int grade, diamonds;
 
-	int id;
-	greeting("Write removed student id:", false);
-	cin >> id;
+	Text("Write student name:").FastShow();
+	cin.ignore();
+	getline(cin, name);
 
-	if (!this->random.removeStudentById(id))
-		greeting("Wrong id");
+	Text("Write student grade:").FastShow();
+	cin >> grade;
 
-}
+	Text("Write student diamonds:").FastShow();
+	cin >> diamonds;
 
-void RandomizerInterface::RandomizeDiamonds(){
-
-	greeting("Randomize diamonds...");
-	this->random.randomizeDiamonds();
-	this->ShowStudents();
+	Student newStud(name, diamonds, grade);
+	Text(newStud.getStudentInfo(), LightBlue).showActive();
 
 	char choice;
-	greeting("You agree?y/n", false);
+	Text("You agree?").FastShow();
 	cin >> choice;
 
-	if (choice != 'y' && choice != 'Y') {
+	switch (choice) {
 
-		this->random.clearStudents();
-		this->RandomizeDiamonds();
+	case 'y':
+		this->random.addnewStudent(name, diamonds, grade);
+		break;
 
+	case 'n':
+		this->addStudents();
+		break;
+
+	default:
+		break;
 	}
 
-	greeting("Diamonds succesfully randomized");
 }
 
-void RandomizerInterface::ShowStudents() const{
+void RandomizerInterface::showStudents()const {
 
-	greeting("\tStudents info\n" + this->random.getStudentsInfo(), false, 20);
+	system("cls");
+	Text("\tStudents:\n", Yellow).showActive();
+	Text(this->random.getStudentsInfo()).FastShow();
 
+	system("pause");
 }
 
-void RandomizerInterface::RandomizeGrade(){
+void RandomizerInterface::removeStudent() {
 
-	this->ShowStudents();
-
-	int id;
-	greeting("Write student id:", false);
-	cin >> id;
-
-	this->random.randomizeGrade(id);
-	greeting("Student grade:" + this->random.getStudentInfoById(id), false);
-
-}
-
-void RandomizerInterface::Settings(){
-
-	this->MAINMENU = "\t#----------------------------------------------------------------#\n";
-	this->MAINMENU += "\t#\tDiamonds(1):" + to_string(this->random.getDiamonds()) + "\tColors(2):" + to_string(this->random.getStudentsSize()) + "\t\t\t\t #\n";
-	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
-
-	greeting(this->MAINMENU, false, 20);
+	system("cls");
+	this->showStudents();
 
 	int choice;
+	Text("\t1.Delete by id\n", Cyan).showActive();
+	Text("\t2.Delete fromto\n", Magenta).showActive();
 	cin >> choice;
 
-	switch(choice){
+	switch (choice) {
 
-		case 1:
-			int diamonds;
-			greeting("Write diamonds:", false);
-			cin >> diamonds;
+	case 1:
+		int id;
+		Text("\tWrite student id:", Red).showActive();
+		cin >> id;
+		this->random.removeStudentById(id);
+		break;
 
-			this->random.setDiamonds(diamonds);
-			greeting("Diamonds succesfully setted to:" + to_string(diamonds));
+	case 2:
+		int from, to;
+		Text("\tWrite first border:", Red).showActive();
+		cin >> from;
+
+		Text("\tWrite last border:", Red).showActive();
+		cin >> to;
+
+		this->random.removeStudentsTuple(from, to);
+		break;
+
+	default:
+		break;
+
+	}
+
+	system("cls");
+	this->showStudents();
+}
+
+void RandomizerInterface::Builder(vector<Text> &fields, int lastField,
+	vector<Text> predecorator, vector<Text> postdecorator) {
+
+	system("cls");
+	this->border.FastShow();
+
+	for (Text &predecor : predecorator)
+		predecor.FastShow();
+
+	this->ShowOrientationMenu(fields, lastField);
+
+	for (Text &postdecor : postdecorator)
+		postdecor.FastShow();
+
+	this->border.FastShow();
+}
+
+void RandomizerInterface::StudentsFunctions() {
+
+	vector<Text> studtxt = {
+		Text("Show Students(1)"),
+		Text("Add Students(2)"),
+		Text("Edit Students(3)"),
+		Text("Remove Students(4)")
+	};
+
+	vector<Text> predecor(2);
+	predecor[0] = Text("Students:" + to_string(this->random.getStudentsSize()) + "\t");
+
+	orientationIn(studtxt, 2, predecor, vector<Text>());
+}
+
+void RandomizerInterface::RandomFunctions() {
+
+	vector<Text> rndtxt = {
+		Text("\tRandomize Diamonds(1)"),
+		Text("Randomize Grade(2)")
+	};
+
+	this->orientationIn(rndtxt, 1, vector<Text>(), vector<Text>());
+}
+
+void RandomizerInterface::ShowOrientationMenu(vector<Text> &fields, int lastField) {
+
+	for (size_t i = 0; i < lastField; i++) {
+		fields[i].FastShow();
+		cout << "\t";
+	}
+
+	fields[lastField].showActive();
+	Text("\t").FastShow();
+
+	for (size_t i = lastField + 1; i < fields.size(); i++) {
+		fields[i].FastShow();
+		cout << "\t";
+	}
+
+	cout << endl;
+}
+
+void RandomizerInterface::orientationIn(vector<Text>& fields, int index,
+	vector<Text> predecorator, vector<Text> postdecorator) {
+
+	int lastField = 0;
+
+	while (true) {
+		Builder(fields, lastField, predecorator, postdecorator);
+
+		switch (orient()) {
+
+		case GO_LEFT:
+			if (lastField != 0)
+				lastField--;
+			break;
+
+		case GO_RIGHT:
+			if (lastField != fields.size() - 1)
+				lastField++;
+			break;
+
+		case CHOOSE:
+			this->chooser(lastField, index);
+			break;
+
+		case GO_BACK:
 			return;
 
-		case 2:
-			char color[2];
-			greeting("Write 'color' + keys:", false);
+		default:
+			break;
 
-			cin.ignore();
-			cin.getline(color, 2);
-			system(color);
-			return;
+		}
 
 	}
 
 }
 
-void RandomizerInterface::MainMenuBuilder(){
+void RandomizerInterface::chooser(int lastField, int functionsSet) {
 
-	this->MAINMENU = "\t#----------------------------------------------------------------#\n";
-	this->MAINMENU += "\t#\tDiamonds:" + to_string(this->random.getDiamonds()) 
-		+ "\tStudents:" + to_string(this->random.getStudentsSize()) + "                              #\n";
+	switch (functionsSet) {
 
-	this->MAINMENU += "\t#\tEdit students(1)\tAdd student(2)                   #\n";
-	this->MAINMENU += "\t#\tRandomizeDiamonds(3)\tRandomize grade(4)               #\n";
+	case 0://main
+		switch (lastField) {
 
-	this->MAINMENU += "\t#\tShow students(5)\tDelete Student(6)     Settings(7)#\n";
-	this->MAINMENU += "\t#----------------------------------------------------------------#\n";
+		case 0:
+			this->StudentsFunctions();
+			break;
+
+		case 1:
+			this->RandomFunctions();
+			break;
+
+		case 2:
+			this->Settings();
+
+		default:
+			break;
+
+		}
+		break;
+
+	case 1://random functions
+		switch (lastField) {
+
+		case 0:
+			this->RandomizeDiamonds();
+			break;
+
+		case 1:
+			this->RandomizeGrade();
+			break;
+
+		default:
+			break;
+
+		}
+		break;
+
+	case 2://student functions
+		switch (lastField) {
+
+		case 0://students show
+			this->showStudents();
+			break;
+
+		case 1://students add
+			this->addStudents();
+			break;
+
+		case 3://students remove
+			this->removeStudent();
+			break;
+
+		}
+		break;
+
+	case 3://settings
+		switch (lastField) {
+
+		case 0:
+			this->setDiamonds();
+			break;
+
+		case 1:
+			this->setGrade();
+			break;
+
+		default:
+			break;
+
+		}
+		break;
+
+	default:
+		break;
+
+	}
+
+}
+
+void RandomizerInterface::RandomizeGrade() {
+
+	system("cls");
+	this->showStudents();
+
+	int choice;
+	Text("\t1.Randomize by id\n", Cyan).showActive();
+	Text("\t2.Randomize all\n", Magenta).showActive();
+	Text("\t3.Randomize fromto\n", Brown).showActive();
+	cin >> choice;
+
+	switch (choice) {
+
+	case 1:
+		int id;
+		Text("Write student id:", Blue).showActive();
+		cin >> id;
+		this->random.randomizeGrade(id);
+		break;
+
+		case 2:
+			int from, to;
+			Text("Write first border:", Red).showActive();
+			cin >> from;
+
+			Text("Write last border:", Red).showActive();
+			cin >> to;
+
+			this->random.randomizeGradeTuple(from, to);
+			break;
+
+		case 3:
+			this->random.randomizeGradeTuple(from, to);
+			break;
+
+		default:
+			break;
+
+	}
+
+	system("cls");
+
+}
+
+void RandomizerInterface::Settings() {
+
+	system("cls");
+	vector<Text> settFields = {
+
+		Text("Set diamonds(1)"),
+		Text("Set grade(2)"),
+
+	};
+
+	this->orientationIn(settFields, 3, vector<Text>(), vector<Text>());
 
 }
 
 void RandomizerInterface::start() {
 
-	greeting("Hello");
-	greeting("You are in randomizer 228-1337");
-	greeting("If you arent Asslan and want to play type 'y'\n", false);
-
-	char choice;
-	cin >> choice;
-
-	if (choice != 'y' && choice != 'Y') {
-
-		greeting("Goodbye");
-		this->~RandomizerInterface();
-		return;
-
-	}
-
-	greeting("Good boy...");
-
 	int diamonds;
-	greeting("Write diamonds number:", false);
+	Text("Write number of diamonds:", Cyan).showActive();
 	cin >> diamonds;
-
-	greeting("Recieving diamonds...");
-	greeting("Diamonds succesfully recieved!");
 	this->random.setDiamonds(diamonds);
 
-	greeting("Getting list of students");
+	int grade;
+	Text("Write students standsrt grade:", Yellow).showActive();
+	cin >> grade;
+	this->random.setAllgrade(grade);
 
-	if (this->random.getStudentsSize() > 0) {
+	vector<Text> maintxt = {
+		Text("Students(1)"),
+		Text("Randomize(2)"),
+		Text("Settings(3)")
+	};
 
-		this->ShowStudents();
+	vector<Text> predecor(2);
+	predecor[0] = Text("\tDiamonds:" + to_string(this->random.getDiamonds()), LightGray, Black, Cyan);
+	predecor[1] = Text("\tStudents:" + to_string(this->random.getStudentsSize()) + "\t", LightGray, Black, Yellow);
 
-		char goodStudents;
-		greeting("Is it ok? y/n", false);
-		cin >> goodStudents;
+	thread th(*MainMusic);
+	th.detach();
 
-		if (goodStudents != 'y' && goodStudents != 'Y')
-			this->editStudents();
-
-	}else {
-
-			greeting("You dont have any students");
-			greeting("You need to append one");
-			this->addStudents();
-
-	}
-
-	greeting("One second...");
-	greeting("Lets start!");
-
-	this->mainMenu();
-}
-
-void RandomizerInterface::mainMenu(){
-
-	while (true) {
-
-		this->MainMenuBuilder();
-		greeting(MAINMENU, false, 5);
-
-		int choice;
-		cin >> choice;
-
-		switch (choice){
-
-			case 1:
-				system("cls");
-				this->loading();
-				this->editStudents();
-				break;
-
-			case 2:
-				system("cls");
-				this->loading();
-				this->addStudents();
-				break;
-
-			case 3:
-				system("cls");
-				this->loading();
-				this->RandomizeDiamonds();
-				break;
-
-			case 4:
-				system("cls");
-				this->loading();
-				this->RandomizeGrade();
-				break;
-
-			case 5:
-				system("cls");
-				this->loading();
-				this->ShowStudents();
-				system("pause");
-				break;
-
-			case 6:
-				system("cls");
-				this->loading();
-				this->removeStudent();
-				break;
-
-			case 7:
-				system("cls");
-				this->loading();
-				this->Settings();
-				break;
-
-			default:
-				greeting("Cant find command\n", false);
-				break;
-		}
-
-		system("cls");
-
-	}
-
+	orientationIn(maintxt, 0, predecor, vector<Text>());
 }
