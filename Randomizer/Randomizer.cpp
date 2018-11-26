@@ -1,6 +1,6 @@
 #include "Randomizer.h"
 
-Randomizer::Randomizer(int diamonds, int students) {
+Randomizer::Randomizer(int diamonds, int students){
 
 	srand(time(NULL));
 	this->setDiamonds(diamonds);
@@ -22,11 +22,11 @@ Randomizer::Randomizer(int diamonds, int students) {
 
 }
 
-int Randomizer::getStudentsSize() const {
+int Randomizer::getStudentsSize() const{
 	return this->students.size();
 }
 
-bool Randomizer::setDiamonds(int diamonds) {
+bool Randomizer::setDiamonds(int diamonds){
 
 	if (diamonds > 0) {
 		this->diamonds = diamonds;
@@ -36,11 +36,11 @@ bool Randomizer::setDiamonds(int diamonds) {
 	return false;
 }
 
-int Randomizer::getDiamonds() const {
+int Randomizer::getDiamonds() const{
 	return this->diamonds;
 }
 
-bool Randomizer::editStudentById(int id, string name, int diamonds, int grade) {
+bool Randomizer::editStudentById(int id, string name, int diamonds, int grade){
 
 	if (id < 0 || id > this->students.size())
 		return false;
@@ -51,7 +51,7 @@ bool Randomizer::editStudentById(int id, string name, int diamonds, int grade) {
 
 }
 
-void Randomizer::setStudentGradeById(int id, int grade) {
+void Randomizer::setStudentGradeById(int id, int grade){
 
 	if (id < 0 || id > this->students.size())
 		return;
@@ -59,26 +59,26 @@ void Randomizer::setStudentGradeById(int id, int grade) {
 	this->students[id].setStudentGrade(grade);
 }
 
-void Randomizer::setStudentGradeTuple(int from, int to, int grade) {
+void Randomizer::setStudentGradeTuple(int from, int to, int grade){
 
 	try {
 		for (int i = from; i < to; i++)
 			this->students[i].setStudentGrade(grade);
 	}
-	catch (int i) {}
+	catch(int i){}
 
 }
 
-void Randomizer::setAllgrade(int grade) {
+void Randomizer::setAllgrade(int grade){
 
 	for (size_t i = 0; i < this->students.size(); i++)
 		this->students[i].setStudentGrade(grade);
 
 }
 
-void Randomizer::randomizeDiamonds() {
+void Randomizer::randomizeDiamonds(){
 
-	while (this->diamonds > 0) {
+	while(this->diamonds > 0) {
 
 		int luckyStudent = rand() % this->students.size();
 
@@ -91,15 +91,15 @@ void Randomizer::randomizeDiamonds() {
 	}
 }
 
-bool Randomizer::randomizeGrade(int id) {
+bool Randomizer::randomizeGrade(int id){
 
 	if (id < 0 || id > this->students.size())
 		return false;
 
-	this->students[id].setStudentGrade(rand() % 12 + 1);
+	this->students[id].setStudentGrade(rand()%12 + 1);
 }
 
-void Randomizer::randomizeGradeTuple(int from, int to) {
+void Randomizer::randomizeGradeTuple(int from, int to){
 
 	if (to == -1)
 		to = this->students.size();
@@ -109,11 +109,11 @@ void Randomizer::randomizeGradeTuple(int from, int to) {
 
 }
 
-void Randomizer::addnewStudent(string name, int diamonds, int grade) {
+void Randomizer::addnewStudent(string name, int diamonds, int grade){
 	this->students.push_back(Student(name, diamonds, grade));
 }
 
-bool Randomizer::removeStudentById(int id) {
+bool Randomizer::removeStudentById(int id){
 
 	if (id < 0 || id > this->students.size())
 		return false;
@@ -123,16 +123,15 @@ bool Randomizer::removeStudentById(int id) {
 
 }
 
-void Randomizer::removeStudentsTuple(int from, int to) {
+void Randomizer::removeStudentsTuple(int from, int to){
 
 	try {
 		this->students.erase(this->students.begin() + from, this->students.end() - to);
-	}
-	catch (int i) {}
+	}catch (int i) {}
 
 }
 
-void Randomizer::clearStudents(bool grades) {
+void Randomizer::clearStudents(bool grades){
 
 	for (size_t i = 0; i < this->students.size(); i++)
 		this->students[i].setStudentDiamonds(0);
@@ -146,7 +145,7 @@ void Randomizer::clearStudents(bool grades) {
 
 }
 
-string Randomizer::getStudentsInfo() const {
+string Randomizer::getStudentsInfo() const{
 
 	string info = "\t0." + this->students[0].getStudentInfo();
 
@@ -156,7 +155,7 @@ string Randomizer::getStudentsInfo() const {
 	return info;
 }
 
-string Randomizer::getStudentInfoById(int id) const {
+string Randomizer::getStudentInfoById(int id) const{
 
 	if (id < 0 || id > this->students.size())
 		return "NoneStud";

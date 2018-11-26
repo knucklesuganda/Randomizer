@@ -1,7 +1,7 @@
 #include "VisionFunctions.h"
 
-Text::Text(string txt, ConsoleColor text, ConsoleColor background,
-	ConsoleColor unactiveText, ConsoleColor unactiveBg) {
+Text::Text(string txt, ConsoleColor text, ConsoleColor background, 
+	ConsoleColor unactiveText, ConsoleColor unactiveBg){
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
@@ -18,7 +18,7 @@ Text::Text(string txt, ConsoleColor text, ConsoleColor background,
 
 }
 
-void Text::SetText(string txt) {
+void Text::SetText(string txt){
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
@@ -29,7 +29,7 @@ void Text::SetText(string txt) {
 
 }
 
-void Text::FastShow() const {
+void Text::FastShow() const{
 	cout << txt;
 }
 
@@ -43,49 +43,52 @@ void Text::showActive()const {
 
 }
 
-string Text::getText() const {
+string Text::getText() const{
 	return this->txt;
 }
 
-Text & Text::operator+=(Text  str) {
-
+Text & Text::operator+=(Text  str){
+	
 	this->txt += str.getText();
 	return *this;
 
 }
 
-Text & Text::operator+=(string  str) {
+Text & Text::operator+=(string  str){
 	this->txt += str;
 	return *this;
 }
 
 //settings
-Settings::Settings() {
+Settings::Settings(){
 
 	ifstream settings("Settings.txt");
-	settings >>  this->activeText >> this->activeBg
+	settings >> this->graphicdepth >> this->activeText >> this->activeBg 
 		>> this->unactiveText >> this->unactiveBg;
 
 }
 
-int Settings::getActiveText() const {
+int Settings::getGraphicDepth() const{
+	return this->graphicdepth;
+}
+
+int Settings::getActiveText() const{
 	return this->activeText;
 }
 
-int Settings::getUnActiveText() const {
+int Settings::getUnActiveText() const{
 	return this->unactiveText;
 }
 
-int Settings::getUnActiveBg() const {
+int Settings::getUnActiveBg() const{
 	return this->unactiveBg;
 }
 
-int Settings::getActiveBg() const {
+int Settings::getActiveBg() const{
 	return this->activeBg;
 }
 
-void MainMusic() {
-
+void MainMusic(){
 	while (true) {
 
 		PlaySound("MainMusic3.wav", NULL, SND_LOOP);

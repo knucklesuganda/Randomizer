@@ -11,9 +11,9 @@
 #pragma comment(lib, "winmm.lib")
 using namespace std;
 
-class RandomizerInterface {
+class RandomizerInterface{
 
-	enum Keys {
+	enum Keys{
 		GO_LEFT,
 		GO_RIGHT,
 		CHOOSE,
@@ -35,7 +35,7 @@ class RandomizerInterface {
 	void RandomizeGrade();
 	void RandomizeDiamonds();
 
-	void setDiamonds();
+	void editDiamonds();
 	void setGrade();
 	void Settings();
 

@@ -5,13 +5,15 @@
 #include <windows.h>
 using namespace std;
 
-enum ConsoleColor {
+enum ConsoleColor{
 	Black, Blue, Green, Cyan, Red, Magenta, Brown,
 	LightGray, DarkGray, LightBlue, LightGreen,
 	LightCyan, LightRed, LightMagenta, Yellow, White
 };
 
 class Settings {
+
+	int graphicdepth;
 
 	int unactiveText;
 	int activeText;
@@ -21,6 +23,7 @@ class Settings {
 
 public:
 	Settings();
+	int getGraphicDepth() const;
 
 	int getActiveText() const;
 	int getUnActiveText() const;
@@ -32,7 +35,7 @@ public:
 
 void MainMusic();
 
-class Text {
+class Text{
 
 	int activeText;
 	int activeBg;
@@ -44,7 +47,7 @@ class Text {
 	Settings stg;
 
 public:
-	Text(string txt = "", ConsoleColor text = ConsoleColor(Settings().getActiveText()),
+	Text(string txt = "", ConsoleColor text = ConsoleColor(Settings().getActiveText()), 
 		ConsoleColor background = ConsoleColor(Settings().getActiveBg()),
 		ConsoleColor unactiveText = ConsoleColor(Settings().getUnActiveText()),
 		ConsoleColor unactiveBg = ConsoleColor(Settings().getUnActiveBg()));

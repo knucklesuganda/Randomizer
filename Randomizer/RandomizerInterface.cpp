@@ -1,6 +1,6 @@
 #include "RandomizerInterface.h"
 
-RandomizerInterface::RandomizerInterface() {
+RandomizerInterface::RandomizerInterface(){
 
 	this->border += "#";
 	for (size_t i = 0; i < 100; i++)
@@ -9,7 +9,7 @@ RandomizerInterface::RandomizerInterface() {
 
 }
 
-void RandomizerInterface::RandomizeDiamonds() {
+void RandomizerInterface::RandomizeDiamonds(){
 
 	system("cls");
 	this->random.randomizeDiamonds();
@@ -21,16 +21,16 @@ void RandomizerInterface::RandomizeDiamonds() {
 
 	switch (choice) {
 
-	case 'n':
-		this->RandomizeDiamonds();
-		break;
+		case 'n':
+			this->RandomizeDiamonds();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 }
 
-void RandomizerInterface::setDiamonds() {
+void RandomizerInterface::editDiamonds(){
 
 	int diamonds;
 	Text("Write new diamonds number:", Cyan).showActive();
@@ -39,10 +39,9 @@ void RandomizerInterface::setDiamonds() {
 	this->random.setDiamonds(diamonds);
 }
 
-void RandomizerInterface::setGrade() {
+void RandomizerInterface::setGrade(){
 
 	system("cls");
-	this->showStudents();
 
 	int grade;
 	Text("Write grade:", Magenta).showActive();
@@ -56,42 +55,42 @@ void RandomizerInterface::setGrade() {
 	cin >> choice;
 	switch (choice) {
 
-	case 1:
-		int id;
-		Text("Write id:", Green).showActive();
-		cin >> id;
-		this->random.setStudentGradeById(id, grade);
-		break;
+		case 1:
+			int id;
+			Text("Write id:", Green).showActive();
+			cin >> id;
+			this->random.setStudentGradeById(id, grade);
+			break;
 
-	case 2:
-		int from, to;
-		Text("Write first id:", Green).showActive();
-		cin >> from;
+		case 2:
+			int from, to;
+			Text("Write first id:", Green).showActive();
+			cin >> from;
 
-		Text("Write last id:", Green).showActive();
-		cin >> to;
-		this->random.setStudentGradeTuple(from, to, grade);
-		break;
+			Text("Write last id:", Green).showActive();
+			cin >> to;
+			this->random.setStudentGradeTuple(from, to, grade);
+			break;
 
-	case 3:
-		this->random.setAllgrade(grade);
-		break;
+		case 3:
+			this->random.setAllgrade(grade);
+			break;
 
-	default:
-		break;
+		default:
+			break;
 
 	}
 
 }
 
-void RandomizerInterface::editStudents() {
+void RandomizerInterface::editStudents(){
 
 	system("cls");
 
 	string name;
 	int grade, diamonds;
 	this->showStudents();
-
+	
 	int id;
 	Text("Write student id:").FastShow();
 	cin >> id;
@@ -115,21 +114,21 @@ void RandomizerInterface::editStudents() {
 
 	switch (choice) {
 
-	case 'y':
-		this->random.editStudentById(id, name, diamonds, grade);
-		break;
+		case 'y':
+			this->random.editStudentById(id, name, diamonds, grade);
+			break;
 
-	case 'n':
-		this->editStudents();
-		break;
+		case 'n':
+			this->editStudents();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 }
 
-void RandomizerInterface::addStudents() {
+void RandomizerInterface::addStudents(){
 
 	system("cls");
 	string name;
@@ -152,23 +151,23 @@ void RandomizerInterface::addStudents() {
 	Text("You agree?").FastShow();
 	cin >> choice;
 
-	switch (choice) {
+	switch (choice){
 
-	case 'y':
-		this->random.addnewStudent(name, diamonds, grade);
-		break;
+		case 'y':
+			this->random.addnewStudent(name, diamonds, grade);
+			break;
 
-	case 'n':
-		this->addStudents();
-		break;
+		case 'n':
+			this->addStudents();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 }
 
-void RandomizerInterface::showStudents()const {
+void RandomizerInterface::showStudents()const{
 
 	system("cls");
 	Text("\tStudents:\n", Yellow).showActive();
@@ -177,52 +176,51 @@ void RandomizerInterface::showStudents()const {
 	system("pause");
 }
 
-void RandomizerInterface::removeStudent() {
+void RandomizerInterface::removeStudent(){
 
 	system("cls");
 	this->showStudents();
 
 	int choice;
-	Text("\t1.Delete by id\n", Cyan).showActive();
-	Text("\t2.Delete fromto\n", Magenta).showActive();
+	Text("1.Delete by id\n", Cyan).showActive();
+	Text("2.Delete fromto\n", Magenta).showActive();
 	cin >> choice;
 
 	switch (choice) {
 
-	case 1:
-		int id;
-		Text("\tWrite student id:", Red).showActive();
-		cin >> id;
-		this->random.removeStudentById(id);
-		break;
+		case 1:
+			int id;
+			Text("Write student id:", Red).showActive();
+			cin >> id;
+			this->random.removeStudentById(id);
+			break;
 
-	case 2:
-		int from, to;
-		Text("\tWrite first border:", Red).showActive();
-		cin >> from;
+		case 2:
+			int from, to;
+			Text("Write first border:", Red).showActive();
+			cin >> from;
 
-		Text("\tWrite last border:", Red).showActive();
-		cin >> to;
+			Text("Write last border:", Red).showActive();
+			cin >> to;
 
-		this->random.removeStudentsTuple(from, to);
-		break;
+			this->random.removeStudentsTuple(from, to);
+			break;
 
-	default:
-		break;
+		default:
+			break;
 
 	}
 
 	system("cls");
-	this->showStudents();
 }
 
-void RandomizerInterface::Builder(vector<Text> &fields, int lastField,
+void RandomizerInterface::Builder(vector<Text> &fields, int lastField, 
 	vector<Text> predecorator, vector<Text> postdecorator) {
 
 	system("cls");
 	this->border.FastShow();
 
-	for (Text &predecor : predecorator)
+	for (Text &predecor: predecorator)
 		predecor.FastShow();
 
 	this->ShowOrientationMenu(fields, lastField);
@@ -233,7 +231,7 @@ void RandomizerInterface::Builder(vector<Text> &fields, int lastField,
 	this->border.FastShow();
 }
 
-void RandomizerInterface::StudentsFunctions() {
+void RandomizerInterface::StudentsFunctions(){
 
 	vector<Text> studtxt = {
 		Text("Show Students(1)"),
@@ -248,7 +246,7 @@ void RandomizerInterface::StudentsFunctions() {
 	orientationIn(studtxt, 2, predecor, vector<Text>());
 }
 
-void RandomizerInterface::RandomFunctions() {
+void RandomizerInterface::RandomFunctions(){
 
 	vector<Text> rndtxt = {
 		Text("\tRandomize Diamonds(1)"),
@@ -258,7 +256,7 @@ void RandomizerInterface::RandomFunctions() {
 	this->orientationIn(rndtxt, 1, vector<Text>(), vector<Text>());
 }
 
-void RandomizerInterface::ShowOrientationMenu(vector<Text> &fields, int lastField) {
+void RandomizerInterface::ShowOrientationMenu(vector<Text> &fields, int lastField){
 
 	for (size_t i = 0; i < lastField; i++) {
 		fields[i].FastShow();
@@ -268,16 +266,16 @@ void RandomizerInterface::ShowOrientationMenu(vector<Text> &fields, int lastFiel
 	fields[lastField].showActive();
 	Text("\t").FastShow();
 
-	for (size_t i = lastField + 1; i < fields.size(); i++) {
-		fields[i].FastShow();
+	for (size_t i =  lastField + 1; i < fields.size(); i++) {
+		 fields[i].FastShow();
 		cout << "\t";
 	}
 
 	cout << endl;
 }
 
-void RandomizerInterface::orientationIn(vector<Text>& fields, int index,
-	vector<Text> predecorator, vector<Text> postdecorator) {
+void RandomizerInterface::orientationIn(vector<Text>& fields, int index, 
+	vector<Text> predecorator, vector<Text> postdecorator){
 
 	int lastField = 0;
 
@@ -312,108 +310,108 @@ void RandomizerInterface::orientationIn(vector<Text>& fields, int index,
 
 }
 
-void RandomizerInterface::chooser(int lastField, int functionsSet) {
+void RandomizerInterface::chooser(int lastField, int functionsSet){
 
 	switch (functionsSet) {
 
-	case 0://main
-		switch (lastField) {
+		case 0://main
+			switch (lastField){
 
-		case 0:
-			this->StudentsFunctions();
+				case 0:
+					this->StudentsFunctions();
+					break;
+
+				case 1:
+					this->RandomFunctions();
+					break;
+
+				case 2:
+					this->Settings();
+
+				default:
+					break;
+
+			}
 			break;
 
-		case 1:
-			this->RandomFunctions();
+		case 1://random functions
+			switch (lastField) {
+
+				case 0:
+					this->RandomizeDiamonds();
+					break;
+
+				case 1:
+					this->RandomizeGrade();
+					break;
+
+				default:
+					break;
+
+			}
 			break;
 
-		case 2:
-			this->Settings();
+		case 2://student functions
+			switch (lastField) {
+
+			case 0://students show
+				this->showStudents();
+				break;
+
+			case 1://students add
+				this->addStudents();
+				break;
+
+			case 2://students edit
+				this->editStudents();
+				break;
+
+			case 3://students remove
+				this->removeStudent();
+				break;
+
+			}
+			break;
+
+		case 3://settings
+			switch (lastField) {
+
+				case 0:
+					this->editDiamonds();
+					break;
+
+				case 1:
+					this->setGrade();
+
+				default:
+					break;
+
+			}
+			break;
 
 		default:
 			break;
-
-		}
-		break;
-
-	case 1://random functions
-		switch (lastField) {
-
-		case 0:
-			this->RandomizeDiamonds();
-			break;
-
-		case 1:
-			this->RandomizeGrade();
-			break;
-
-		default:
-			break;
-
-		}
-		break;
-
-	case 2://student functions
-		switch (lastField) {
-
-		case 0://students show
-			this->showStudents();
-			break;
-
-		case 1://students add
-			this->addStudents();
-			break;
-
-		case 3://students remove
-			this->removeStudent();
-			break;
-
-		}
-		break;
-
-	case 3://settings
-		switch (lastField) {
-
-		case 0:
-			this->setDiamonds();
-			break;
-
-		case 1:
-			this->setGrade();
-			break;
-
-		default:
-			break;
-
-		}
-		break;
-
-	default:
-		break;
 
 	}
 
 }
 
-void RandomizerInterface::RandomizeGrade() {
-
-	system("cls");
-	this->showStudents();
+void RandomizerInterface::RandomizeGrade(){
 
 	int choice;
-	Text("\t1.Randomize by id\n", Cyan).showActive();
-	Text("\t2.Randomize all\n", Magenta).showActive();
-	Text("\t3.Randomize fromto\n", Brown).showActive();
+	Text("1.Randomize by id\n", Cyan).showActive();
+	Text("2.Randomize all\n", Magenta).showActive();
+	Text("3.Randomize fromto\n", Brown).showActive();
 	cin >> choice;
 
 	switch (choice) {
 
-	case 1:
-		int id;
-		Text("Write student id:", Blue).showActive();
-		cin >> id;
-		this->random.randomizeGrade(id);
-		break;
+		case 1:
+			int id;
+			Text("Write student id:", Blue).showActive();
+			cin >> id;
+			this->random.randomizeGrade(id);
+			break;
 
 		case 2:
 			int from, to;
@@ -439,17 +437,11 @@ void RandomizerInterface::RandomizeGrade() {
 
 }
 
-void RandomizerInterface::Settings() {
+void RandomizerInterface::Settings(){
 
 	system("cls");
-	vector<Text> settFields = {
 
-		Text("Set diamonds(1)"),
-		Text("Set grade(2)"),
 
-	};
-
-	this->orientationIn(settFields, 3, vector<Text>(), vector<Text>());
 
 }
 
@@ -466,9 +458,9 @@ void RandomizerInterface::start() {
 	this->random.setAllgrade(grade);
 
 	vector<Text> maintxt = {
-		Text("Students(1)"),
+		Text("Students(1)"), 
 		Text("Randomize(2)"),
-		Text("Settings(3)")
+		Text("Settings(3)") 
 	};
 
 	vector<Text> predecor(2);

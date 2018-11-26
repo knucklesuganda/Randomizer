@@ -131,6 +131,10 @@
   <ItemGroup>
     <ResourceCompile Include="Randomizer.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Downloads\Megalovania.mp3" />
+    <Media Include="..\..\..\..\Downloads\MainMusic.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
