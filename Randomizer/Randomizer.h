@@ -19,6 +19,8 @@ public:
 	int getDiamonds() const;
 
 	bool editStudentById(int id, string name, int diamonds, int grade);
+	void setStudentGradeById(int id, int grade);
+	void setStudentGradeTuple(int from, int to, int grade);
 	void setAllgrade(int grade);
 
 	void randomizeDiamonds();

@@ -34,8 +34,9 @@ class RandomizerInterface{
 
 	void RandomizeGrade();
 	void RandomizeDiamonds();
-	void setGrade();
 
+	void editDiamonds();
+	void setGrade();
 	void Settings();
 
 	Keys orient() const {

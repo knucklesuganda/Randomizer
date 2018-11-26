@@ -51,9 +51,27 @@ bool Randomizer::editStudentById(int id, string name, int diamonds, int grade){
 
 }
 
+void Randomizer::setStudentGradeById(int id, int grade){
+
+	if (id < 0 || id > this->students.size())
+		return;
+
+	this->students[id].setStudentGrade(grade);
+}
+
+void Randomizer::setStudentGradeTuple(int from, int to, int grade){
+
+	try {
+		for (int i = from; i < to; i++)
+			this->students[i].setStudentGrade(grade);
+	}
+	catch(int i){}
+
+}
+
 void Randomizer::setAllgrade(int grade){
 
-	for (size_t i = 0; i < grade; i++)
+	for (size_t i = 0; i < this->students.size(); i++)
 		this->students[i].setStudentGrade(grade);
 
 }

@@ -11,6 +11,7 @@ RandomizerInterface::RandomizerInterface(){
 
 void RandomizerInterface::RandomizeDiamonds(){
 
+	system("cls");
 	this->random.randomizeDiamonds();
 	this->showStudents();
 
@@ -29,14 +30,69 @@ void RandomizerInterface::RandomizeDiamonds(){
 	}
 }
 
+void RandomizerInterface::editDiamonds(){
+
+	int diamonds;
+	Text("Write new diamonds number:", Cyan).showActive();
+	cin >> diamonds;
+
+	this->random.setDiamonds(diamonds);
+}
+
+void RandomizerInterface::setGrade(){
+
+	system("cls");
+
+	int grade;
+	Text("Write grade:", Magenta).showActive();
+	cin >> grade;
+
+	int choice;
+	Text("1.By id\n", Green).showActive();
+	Text("1.For tuple\n", Blue).showActive();
+	Text("1.For all\n", Brown).showActive();
+
+	cin >> choice;
+	switch (choice) {
+
+		case 1:
+			int id;
+			Text("Write id:", Green).showActive();
+			cin >> id;
+			this->random.setStudentGradeById(id, grade);
+			break;
+
+		case 2:
+			int from, to;
+			Text("Write first id:", Green).showActive();
+			cin >> from;
+
+			Text("Write last id:", Green).showActive();
+			cin >> to;
+			this->random.setStudentGradeTuple(from, to, grade);
+			break;
+
+		case 3:
+			this->random.setAllgrade(grade);
+			break;
+
+		default:
+			break;
+
+	}
+
+}
+
 void RandomizerInterface::editStudents(){
+
+	system("cls");
 
 	string name;
 	int grade, diamonds;
 	this->showStudents();
 	
 	int id;
-	Text("Write student id:");
+	Text("Write student id:").FastShow();
 	cin >> id;
 
 	Text("Write student name:").FastShow();
@@ -74,6 +130,7 @@ void RandomizerInterface::editStudents(){
 
 void RandomizerInterface::addStudents(){
 
+	system("cls");
 	string name;
 	int grade, diamonds;
 
@@ -121,6 +178,7 @@ void RandomizerInterface::showStudents()const{
 
 void RandomizerInterface::removeStudent(){
 
+	system("cls");
 	this->showStudents();
 
 	int choice;
@@ -196,7 +254,6 @@ void RandomizerInterface::RandomFunctions(){
 	};
 
 	this->orientationIn(rndtxt, 1, vector<Text>(), vector<Text>());
-
 }
 
 void RandomizerInterface::ShowOrientationMenu(vector<Text> &fields, int lastField){
@@ -317,7 +374,19 @@ void RandomizerInterface::chooser(int lastField, int functionsSet){
 			break;
 
 		case 3://settings
-			this->Settings();
+			switch (lastField) {
+
+				case 0:
+					this->editDiamonds();
+					break;
+
+				case 1:
+					this->setGrade();
+
+				default:
+					break;
+
+			}
 			break;
 
 		default:
@@ -368,17 +437,23 @@ void RandomizerInterface::RandomizeGrade(){
 
 }
 
-void RandomizerInterface::Settings(){}
+void RandomizerInterface::Settings(){
+
+	system("cls");
+
+
+
+}
 
 void RandomizerInterface::start() {
 
 	int diamonds;
-	Text("Write number of diamonds:").FastShow();
+	Text("Write number of diamonds:", Cyan).showActive();
 	cin >> diamonds;
 	this->random.setDiamonds(diamonds);
 
 	int grade;
-	Text("Write students standsrt grade:").FastShow();
+	Text("Write students standsrt grade:", Yellow).showActive();
 	cin >> grade;
 	this->random.setAllgrade(grade);
 

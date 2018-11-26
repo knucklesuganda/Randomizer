@@ -92,7 +92,7 @@ void MainMusic(){
 	while (true) {
 
 		PlaySound("MainMusic3.wav", NULL, SND_LOOP);
-		PlaySound("MainMusic.wav", NULL, SND_LOOP);
+		PlaySound("MainMusic4.wav", NULL, SND_LOOP);
 		PlaySound("MainMusic.wav", NULL, SND_LOOP);
 		PlaySound("MainMusic2.wav", NULL, SND_LOOP);
 
